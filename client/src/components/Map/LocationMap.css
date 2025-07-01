@@ -1,0 +1,66 @@
+.location-map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.location-map-container.loading,
+.location-map-container.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  color: #666;
+  padding: 20px;
+  text-align: center;
+}
+
+.location-map-container.error {
+  background-color: #fff0f0;
+  color: #d32f2f;
+}
+
+.location-map-container.error button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.debug-info {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 12px;
+  max-width: 100%;
+  overflow: auto;
+  text-align: left;
+}
+
+/* Make sure the map takes full height of container */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
