@@ -1,9 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
 import './LocationMap.css';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLocation } from '../../contexts/LocationContext';
+// Custom icons
+const currentUserIcon = L.icon({
+  iconUrl: require('./current-location.png'),
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30]
+});
+
+const guardianIcon = L.icon({
+  iconUrl: require('./guardian.png'),
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30]
+});
+
+const patientIcon = L.icon({
+  iconUrl: require('./patient.png'),
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30]
+});
+
 
 // Fix Leaflet icon issues
 delete L.Icon.Default.prototype._getIconUrl;

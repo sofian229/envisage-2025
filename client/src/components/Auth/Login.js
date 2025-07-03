@@ -19,11 +19,17 @@ const Login = () => {
   const onSubmit = async e => {
     e.preventDefault();
     setError('');
-    
+    navigate('/dashboard');
     try {
       const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      
-      // Save to localStorage
+
+      // ✅ Clear old user info (prevents wrong account bug)
+      /*localStorage.clear();
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userInfo');*/
+
+
+      // ✅ Save new login data to localStorage
       localStorage.setItem('userToken', res.data.token);
       localStorage.setItem('userInfo', JSON.stringify({
         id: res.data._id,
@@ -33,7 +39,8 @@ const Login = () => {
         patientKey: res.data.patientKey,
         linkedPatientId: res.data.linkedPatientId
       }));
-      
+
+      // ✅ Redirect to dashboard
       navigate('/dashboard');
     } catch (err) {
       console.error('Login error:', err);

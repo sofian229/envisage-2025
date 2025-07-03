@@ -1,5 +1,6 @@
 class WebSocketService {
   constructor() {
+    
     this.socket = null;
     this.listeners = {
       message: [],
@@ -13,6 +14,7 @@ class WebSocketService {
     this.isConnecting = false;
     this.messageQueue = [];
     this.pingInterval = null;
+    this.latestCoordinates = null;
   }
 
   connect(token) {
@@ -98,22 +100,26 @@ class WebSocketService {
   }
 
   setupPing() {
-    // Clear any existing interval
-    if (this.pingInterval) {
-      clearInterval(this.pingInterval);
-    }
-    
-    // Send a ping message every 25 seconds to keep the connection alive
-    this.pingInterval = setInterval(() => {
-      if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-        // Send a simple ping message
-        this.sendMessage({ type: 'ping' });
-      } else {
-        clearInterval(this.pingInterval);
-        this.pingInterval = null;
-      }
-    }, 25000);
+  // Clear any existing interval
+  if (this.pingInterval) {
+    clearInterval(this.pingInterval);
   }
+
+  // Send the latest coordinates every 5 seconds (or whatever interval you want)
+  this.pingInterval = setInterval(() => {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN && this.latestCoordinates) {
+      console.log('Sending live location via WebSocket:', this.latestCoordinates);
+      this.sendMessage({
+        type: 'locationUpdate',
+        coordinates: this.latestCoordinates
+      });
+    } else {
+      console.log('WebSocket not open or no coordinates to send');
+    }
+  }, 1000); // 5 seconds interval
+}
+
+
 
   cleanup() {
     // Clear ping interval

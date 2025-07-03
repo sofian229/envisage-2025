@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password,
-      role: role === 'doctor' ? 'guardian' : role // Map 'doctor' to 'guardian'
+      role// role: role === 'doctor' ? 'guardian' : role // Map 'doctor' to 'guardian'
     });
     
     // Generate patient key for patients
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
     }
     
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secret_key_for_development', { expiresIn: '7d' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     
     // Return user data and token
     res.json({

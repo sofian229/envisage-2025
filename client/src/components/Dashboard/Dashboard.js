@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { AuthProvider } from '../../contexts/AuthContext';
 import { useLocation } from '../../contexts/LocationContext';
 import LocationMap from '../Map/LocationMap';
 import './Dashboard.css';
@@ -108,8 +109,11 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     stopLocationTracking();
+    // localStorage.removeItem('userToken');
+    // localStorage.removeItem('userInfo');
+    //setUser(null);    
     logout();
-    navigate('/login');
+    //navigate('/login');
   };
 
   if (isLoading) {

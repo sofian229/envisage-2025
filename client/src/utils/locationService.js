@@ -18,7 +18,48 @@ class LocationService {
     this.lastUpdateTime = 0;
     this.errorCount = 0;
     this.maxErrorCount = 3;
+    
+
   }
+
+  updateCoordinates(coordinates) {
+  this.latestCoordinates = coordinates;
+}
+
+
+  handlePositionUpdate(position) {
+  console.log("Position update received:", position);
+  const now = Date.now();
+
+  if (now - this.lastUpdateTime < this.minUpdateInterval) {
+    console.log("Update throttled (too frequent)");
+    return;
+  }
+
+  this.lastPosition = position;
+  this.lastUpdateTime = now;
+
+  const coordinates = {
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude,
+    accuracy: position.coords.accuracy,
+    timestamp: position.timestamp
+  };
+
+  console.log("Sending coordinates to listeners:", coordinates);
+
+  // ✅ Update WebSocketService
+  webSocketService.updateCoordinates(coordinates);
+
+  this.notifyListeners('update', coordinates);
+
+  // ✅ Already pushed here if location was new:
+  webSocketService.sendMessage({
+    type: 'locationUpdate',
+    coordinates
+  });
+}
+
 
   startTracking() {
     if (!navigator.geolocation) {
