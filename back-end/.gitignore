@@ -1,0 +1,46 @@
+# Node.js Backend specific
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+data/
+uploads/
+
+# MongoDB dumps
+dump/
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage
+coverage/
+
+# Build output
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
